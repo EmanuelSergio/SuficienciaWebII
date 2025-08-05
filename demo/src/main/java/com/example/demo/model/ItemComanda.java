@@ -6,29 +6,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "comandas")
+@Table(name = "itens_comanda")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Comanda {
-
+public class ItemComanda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "comanda_id", nullable = false)
+    private Comanda comanda;
 
-    @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemComanda> itens = new ArrayList<>();
+//    @NotBlank
+//    @Size(min = 3, max = 100)
+    private String nome;
 
+//    @DecimalMin("0.01")
+    private BigDecimal preco;
 
-
+    // Getters e Setters
 }
