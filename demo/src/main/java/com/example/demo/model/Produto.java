@@ -1,27 +1,29 @@
 package com.example.demo.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.processing.Pattern;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "produtos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id()
+    @GeneratedValue
     private Long id;
 
     private String nome;
 
-
-    private String telefone;
-
+    private BigDecimal preco;
 }

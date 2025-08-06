@@ -5,16 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class ComandaDTO {
+public class ProdutoDTO {
     private Long id;
-    private Long idUsuario;
-    private String nomeUsuario;
-    private String telefoneUsuario;
-    private List<ProdutoDTO> produtos;
+    private String nome;
+    private BigDecimal preco;
 }

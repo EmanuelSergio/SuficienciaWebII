@@ -16,19 +16,14 @@ import java.util.List;
 @Getter
 @Setter
 public class Comanda {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
+    private Long idUsuario;
+    private String nomeUsuario;
+    private String telefoneUsuario;
 
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    @OneToMany(mappedBy = "comanda", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemComanda> itens = new ArrayList<>();
-
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produto> produtos;
 
 }
+
