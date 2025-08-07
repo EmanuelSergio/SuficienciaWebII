@@ -18,12 +18,11 @@ import java.util.List;
 public class Comanda {
     @Id @GeneratedValue
     private Long id;
-    private Long idUsuario;
-    private String nomeUsuario;
-    private String telefoneUsuario;
+    
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Produto> produtos;
-
+    private List<Produto> produtos = new ArrayList<>();
 }
-

@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import com.example.demo.dto.ComandaRequestDTO;
+import com.example.demo.dto.ComandaResponseDTO;
 import com.example.demo.model.Comanda;
 import com.example.demo.service.ComandaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,11 @@ public class ComandaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Comanda criar(@RequestBody @Validated Comanda c) { return service.criar(c); }
-
+    public ComandaResponseDTO criar(@RequestBody @Validated ComandaRequestDTO comandaDTO) {
+        return service.criar(comandaDTO);
+    }
     @PutMapping("/{id}")
-    public Comanda atualizar(@PathVariable Long id, @RequestBody Comanda c) {
+    public ComandaResponseDTO atualizar(@PathVariable Long id, @RequestBody ComandaRequestDTO c) {
         return service.atualizar(id, c);
     }
 
