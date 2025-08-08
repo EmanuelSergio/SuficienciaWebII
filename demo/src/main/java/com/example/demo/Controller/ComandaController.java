@@ -1,8 +1,11 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import java.util.List;
 
 import com.example.demo.dto.ComandaRequestDTO;
+import com.example.demo.dto.ComandaResponseDTO;
+import com.example.demo.dto.ComandaUpdateDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +59,7 @@ public class ComandaController {
     @Operation(summary = "Criar comanda", description = "Cria uma nova comanda")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Comanda criada com sucesso",
-                  content = @Content(schema = @Schema(implementation = ComandaDTO.class))),
+                  content = @Content(schema = @Schema(implementation = ComandaResponseDTO.class))),
         @ApiResponse(responseCode = "400", description = "Dados inválidos",
                   content = @Content)
     })
@@ -68,13 +71,13 @@ public class ComandaController {
     @Operation(summary = "Atualizar comanda", description = "Atualiza os dados de uma comanda existente")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Comanda atualizada com sucesso",
-                  content = @Content(schema = @Schema(implementation = ComandaDTO.class))),
+                  content = @Content(schema = @Schema(implementation = ComandaUpdateDTO.class))),
         @ApiResponse(responseCode = "404", description = "Comanda não encontrada",
                   content = @Content)
     })
     public ResponseEntity<ComandaDTO> atualizarComanda(
             @Parameter(description = "ID da comanda") @PathVariable Long id, 
-            @RequestBody ComandaRequestDTO comandaRequest) {
+            @RequestBody ComandaUpdateDTO comandaRequest) {
         return ResponseEntity.ok(comandaService.atualizar(id, comandaRequest));
     }
     

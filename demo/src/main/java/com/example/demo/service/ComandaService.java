@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.ComandaDTO;
 import com.example.demo.dto.ComandaRequestDTO;
+import com.example.demo.dto.ComandaUpdateDTO;
 import com.example.demo.model.Comanda;
 import com.example.demo.model.Produto;
 import com.example.demo.repository.ComandaRepository;
@@ -51,7 +52,7 @@ public class ComandaService {
         return convertToDTO(novaConta);
     }
     
-    public ComandaDTO atualizar(Long id, ComandaRequestDTO comandaRequest) {
+    public ComandaDTO atualizar(Long id, ComandaUpdateDTO comandaRequest) {
         Comanda comanda = comandaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comanda não encontrada"));
 
