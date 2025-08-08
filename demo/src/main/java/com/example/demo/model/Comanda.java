@@ -1,28 +1,30 @@
 package com.example.demo.model;
 
+import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "comandas")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comanda {
-    @Id @GeneratedValue
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Produto> produtos = new ArrayList<>();
+    private String nome;
+    
+    private Date data;
+    
+    @ManyToMany
+    private List<Produto> produtos;
 }

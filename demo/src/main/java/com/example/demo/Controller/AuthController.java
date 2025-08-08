@@ -8,6 +8,14 @@ import com.example.demo.repository.UsuarioRepository;
 import com.example.demo.security.JwtTokenUtil;
 import com.example.demo.security.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +28,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Endpoints para autenticação e registro de usuários")
 public class AuthController {
 
     @Autowired
@@ -40,7 +51,14 @@ public class AuthController {
     private UsuarioRepository usuarioRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDTO request) {
+    @Operation(summary = "Fazer login", description = "Autentica um usuário e retorna um token JWT")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Login realizado com sucesso", 
+                  content = @Content(schema = @Schema(implementation = AuthResponseDTO.class))),
+        @ApiResponse(responseCode = "401", description = "Credenciais inválidas", 
+                  content = @Content)
+    })
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequestDTO request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getSenha())
         );
@@ -52,9 +70,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Registrar usuário", description = "Registra um novo usuário e retorna um token JWT")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Registro realizado com sucesso", 
+                  content = @Content(schema = @Schema(implementation = AuthResponseDTO.class))),
+        @ApiResponse(responseCode = "400", description = "Email já existe", 
+                  content = @Content)
+    })
     public ResponseEntity<?> register(@RequestBody @Valid RegisterRequestDTO request) {
         if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email já existe");
+            return ResponseEntity.badRequest().body(Map.of("error", "Email já existe"));
         }
 
         Usuario usuario = new Usuario();

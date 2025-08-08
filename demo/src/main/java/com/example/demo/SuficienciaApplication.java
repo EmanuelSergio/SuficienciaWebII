@@ -10,5 +10,4 @@ public class SuficienciaApplication {
 		SpringApplication.run(SuficienciaApplication.class, args);
 	}
 
-
 }

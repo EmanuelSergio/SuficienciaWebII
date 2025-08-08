@@ -2,28 +2,27 @@ package com.example.demo.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class RegisterRequestDTO {
     
     
-    @NotBlank(message = "Nome não pode ser nulo ou vazio")
+    @NotEmpty(message = "Nome não pode ser nulo ou vazio")
     private String nome;
 
-    @NotBlank(message = "Email não pode ser nulo ou vazio")
+    @NotEmpty(message = "Email não pode ser nulo ou vazio")
     @Email(message = "Email inválido")
     private String email;
 
-    @NotBlank(message = "Telefone não pode ser nulo ou vazio")
+    @NotEmpty(message = "Telefone não pode ser nulo ou vazio")
     private String telefone;
 
-    @NotBlank(message = "Senha não pode ser nula ou vazia")
+    @NotEmpty(message = "Senha não pode ser nula ou vazia")
     private String senha;
 }

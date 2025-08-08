@@ -32,7 +32,7 @@ public class UsuarioService {
 
     @Transactional
     public Usuario criar(Usuario usuario) {
-        usuario.setId(null); // Ensure we're creating a new user
+        usuario.setId(null); 
         return repository.save(usuario);
     }
 

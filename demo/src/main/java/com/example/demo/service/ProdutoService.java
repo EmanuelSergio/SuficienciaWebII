@@ -26,7 +26,7 @@ public class ProdutoService {
 
     @Transactional
     public Produto criar(Produto produto) {
-        produto.setId(null); // Ensure we're creating a new product
+        produto.setId(null); 
         return repository.save(produto);
     }
 
